@@ -1,0 +1,34 @@
+#!/bin/bash
+
+sudo apt-get install python-pip liblua5.1-dev libssl-dev
+sudo pip install --upgrade pip
+sudo apt-get remove python-pip
+
+wget -O aerospike.tgz 'http://aerospike.com/download/server/latest/artifact/ubuntu12'
+tar -xvf aerospike.tgz
+cd aerospike-server-community-*-ubuntu12*
+sudo ./asinstall # will install the .rpm packages
+
+sudo su
+echo "Setting config params"
+cat >> /etc/aerospike/aerospike.conf <<DELIM
+namespace sdn {
+	replication-factor 2
+	memory-size 4G
+	default-ttl 30d # 30 days, use 0 to never expire/evict.
+
+	storage-engine memory
+
+	# To use file storage backing, comment out the line above and use the
+	# following lines instead.
+#	storage-engine device {
+#		file /opt/aerospike/data/bar.dat
+#		filesize 16G
+#		data-in-memory true # Store data in memory in addition to file.
+#	}
+}
+DELIM
+
+cat /etc/aerospike/aerospike.conf
+sudo service aerospike start 
+# wait for it. "service ready: soon there will be cake!"

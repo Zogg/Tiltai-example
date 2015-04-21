@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo 'docker,mesos' > /etc/mesos-slave/containerizers
+echo '5mins' > /etc/mesos-slave/executor_registration_timeout
