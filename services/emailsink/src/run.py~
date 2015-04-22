@@ -9,7 +9,7 @@ import socket
 log = Logger("{host} - {service}".format(host=socket.gethostname(), service="Email-Sink"))
 
 def emailsink():
-    crypted_mails = gate('in', network=dockersdn('crypted_mails', resolver=addr, storage=fromfile))
+    crypted_mails = gate('in', network=dockersdn('crypted_mails'))
 
     while True:
         email = pull(crypted_mails)
