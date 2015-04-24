@@ -71,6 +71,8 @@ which has Mesos and [Marathon][2] pre-installed.
   # Restart marathon infrastructure
   cd /vagrant/bin && ./restart_infra
   ```
+  
+  The marathon's software-defined-infrastructure is defined at `/vagrant/grouped-infra.json`
 
 ## Documentation
 
