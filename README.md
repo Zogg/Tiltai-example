@@ -80,7 +80,6 @@ which has Mesos and [Marathon][2] pre-installed.
 * [Common Tasks][16]
 * [Troubleshooting][17]
 * [Known Issues][18]
-* [To Do][19]
 
 
 [1]: http://incubator.apache.org/mesos/ "Apache Mesos"
