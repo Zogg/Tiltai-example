@@ -102,6 +102,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   
   config.vm.provision "shell" do |s|
-    s.inline = "sudo rm -rf /tmp/mesos/meta/slaves && sudo start mesos-slave && sudo start marathon" 
+    s.inline = "sudo rm -rf /tmp/mesos/meta/slave && sudo start mesos-slave && sudo start marathon" 
   end
 end

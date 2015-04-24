@@ -1,4 +1,4 @@
-# Playa Mesos
+# Tiltai example
 
 Tiltai-example helps you quickly tryout [Tiltai][24] functionality on a single host. 
 
@@ -46,8 +46,6 @@ which has Mesos and [Marathon][2] pre-installed.
 
   ```bash
   vagrant ssh
-  ps -eaf | grep mesos
-  exit
   ```
 
 1. Launch the infrastructure
