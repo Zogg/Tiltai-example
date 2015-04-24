@@ -78,12 +78,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "shell", path: "lib/scripts/common/dockerize"
-  config.vm.provision "shell", path: "lib/scripts/common/aerospike"
 
-  config.vm.provision "shell" do |s|
-    s.inline = "cd /vagrant/services/nanomsg && /bin/bash /vagrant/services/nanomsg/build.sh" 
-  end
- 
   config.vm.provision "shell" do |s|
     s.inline = "cd /vagrant/services/nanomsg && /bin/bash /vagrant/services/nanomsg/build.sh" 
     s.inline = "cd /vagrant/services/feeder && /bin/bash /vagrant/services/feeder/build.sh" 

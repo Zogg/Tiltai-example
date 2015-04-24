@@ -1,0 +1,9 @@
+#!/bin/bash
+
+wget -qO- https://get.docker.com/ | sh
+
+echo 'docker,mesos' > /etc/mesos-slave/containerizers
+echo '5mins' > /etc/mesos-slave/executor_registration_timeout
+
+sudo sed -i "s/#DOCKER_OPTS=\".*\"/DOCKER_OPTS=\"--dns 172.17.42.1 --dns 8.8.4.4 --dns-search service.consul\"/g" /etc/default/docker
+

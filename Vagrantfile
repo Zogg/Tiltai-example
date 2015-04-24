@@ -82,11 +82,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell" do |s|
     s.inline = "cd /vagrant/services/nanomsg && /bin/bash /vagrant/services/nanomsg/build.sh" 
   end
- 
   config.vm.provision "shell" do |s|
-    s.inline = "cd /vagrant/services/nanomsg && /bin/bash /vagrant/services/nanomsg/build.sh" 
     s.inline = "cd /vagrant/services/feeder && /bin/bash /vagrant/services/feeder/build.sh" 
+  end
+  config.vm.provision "shell" do |s|
     s.inline = "cd /vagrant/services/encryptor && /bin/bash /vagrant/services/encryptor/build.sh" 
+  end
+  config.vm.provision "shell" do |s|
     s.inline = "cd /vagrant/services/emailsink && /bin/bash /vagrant/services/emailsink/build.sh" 
   end
 

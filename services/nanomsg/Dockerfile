@@ -6,10 +6,6 @@ RUN apt-get update && \
 RUN pip install --upgrade pip
 RUN apt-get -qyy remove python-pip
 
-RUN git clone https://github.com/Zogg/Tiltai.git
-WORKDIR /Tiltai
-RUN python setup.py sdist && pip install ./dist/Tiltai-0.1.0.tar.gz
-
 RUN wget http://download.nanomsg.org/nanomsg-0.5-beta.tar.gz
 RUN tar xzf nanomsg-0.5-beta.tar.gz && cd nanomsg-0.5-beta && ./configure && make && make install && ldconfig
 
@@ -22,3 +18,8 @@ WORKDIR /myproject
 RUN pip install -r requirements.txt
 
 
+WORKDIR /
+ENV wtf 7
+RUN git clone https://github.com/Zogg/Tiltai.git 
+WORKDIR /Tiltai
+RUN python setup.py install
