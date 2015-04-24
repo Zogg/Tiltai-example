@@ -1,12 +1,10 @@
 # Playa Mesos
 
-[Playa Mesos][8] helps you quickly create [Apache Mesos][1] test environments.
-This project relies on [VirtualBox][5], [Vagrant][6], and an Ubuntu box image
-which has Mesos and [Marathon][2] pre-installed. The box image is downloadable for your
-convenience, but it can also be built from source using [Packer][9].
+Tiltai-example helps you quickly tryout [Tiltai][24] functionality on a single host. 
 
-As an alternative to VirtualBox, it's possible to build and run the image on
-VMware [Fusion](https://www.vmware.com/products/fusion/) or [Workstation](https://www.vmware.com/products/workstation/).
+It is based on [Playa Mesos][8], which helps you quickly create [Apache Mesos][1] test environments.
+This project relies on [VirtualBox][5], [Vagrant][6], and an Ubuntu box image
+which has Mesos and [Marathon][2] pre-installed. 
 
 ## Requirements
 
@@ -26,8 +24,8 @@ VMware [Fusion](https://www.vmware.com/products/fusion/) or [Workstation](https:
 1. Clone this repository
 
   ```bash
-  git clone https://github.com/mesosphere/playa-mesos.git
-  cd playa-mesos
+  git clone https://github.com/Zogg/Tiltai-example.git
+  cd Tiltai-example
   ```
 
 1. Make sure tests pass
@@ -42,7 +40,7 @@ VMware [Fusion](https://www.vmware.com/products/fusion/) or [Workstation](https:
   vagrant up
   ```
 
-1. Connect to the Mesos Web UI on [10.141.141.10:5050](http://10.141.141.10:5050) and the Marathon Web UI on [10.141.141.10:8080](http://10.141.141.10:8080)
+1. Connect to the Mesos Web UI on [10.141.141.10:5050](http://10.141.141.10:5050) and the Marathon Web UI on [10.141.141.10:8080](http://10.141.141.10:8080) and the Consul Web UI on [10.141.141.10:8500](http://10.141.141.10:8500)
 
 1. SSH to the VM
 
@@ -52,57 +50,27 @@ VMware [Fusion](https://www.vmware.com/products/fusion/) or [Workstation](https:
   exit
   ```
 
-1. Halt the VM
+1. Launch the infrastructure
 
   ```bash
-  vagrant halt
+  cd /vagrant/bin
+  ./make_infra
   ```
+  
+  Inspect Marathon Web UI, it should now deploy the services. Using Mesos Web UI you may inspect service logs. And using Consul Web UI you may observe the registered services and their ip/ports.
 
-1. Destroy the VM
+1. Playing with the services
 
   ```bash
-  vagrant destroy
+  # The services are found at /vagrant/services
+  # Modify the source code of the service
+  cd /vagrant/services/feeder
+  vim ./src/run.py
+  # Rebuild docker image
+  ./build.sh
+  # Restart marathon infrastructure
+  cd /vagrant/bin && ./restart_infra
   ```
-
-## Building the Mesos box image (optional)
-
-1. Install [Packer][9]
-
-  Installing Packer is not completely automatic. Once you have downloaded and
-  extracted Packer, you must update your search path so that the `packer`
-  executable can be found.
-
-  ```bash
-  # EXAMPLE - PACKER LOCATION MUST BE ADJUSTED
-  export PATH=$PATH:/path/where/i/extracted/packer/archive/
-  ```
-
-1. Destroy any existing VM
-
-  ```bash
-  vagrant destroy
-  ```
-
-1. Build the Vagrant box image
-
-  ```bash
-  bin/build
-  ```
-
-1. Start the VM using the local box image
-
-  ```bash
-  vagrant up
-  ```
-
-The build is controlled with the following files:
-
-* [config.json][21]
-* [packer/packer.json][22]
-* [lib/scripts/*][23]
-
-For additional information on customizing the build, or creating a new profile,
-see [Configuration][15] and the [Packer Documentation][20].
 
 ## Documentation
 
@@ -111,18 +79,6 @@ see [Configuration][15] and the [Packer Documentation][20].
 * [Troubleshooting][17]
 * [Known Issues][18]
 * [To Do][19]
-
-## Similar Projects
-
-* [vagrant-mesos](https://github.com/everpeace/vagrant-mesos): Vagrant
-  provisioning with multinode and EC2 support
-
-## Authors
-
-* [Jeremy Lingmann](https://github.com/lingmann) ([@lingmann](https://twitter.com/lingmann))
-* [Jason Dusek](https://github.com/solidsnack) ([@solidsnack](https://twitter.com/solidsnack))
-
-VMware Support: [Fabio Rapposelli](https://github.com/frapposelli) ([@fabiorapposelli](https://twitter.com/fabiorapposelli))
 
 
 [1]: http://incubator.apache.org/mesos/ "Apache Mesos"
@@ -145,3 +101,4 @@ VMware Support: [Fabio Rapposelli](https://github.com/frapposelli) ([@fabiorappo
 [21]: config.json "config.json"
 [22]: packer/packer.json "packer.json"
 [23]: lib/scripts "scripts"
+[24]: http://github.com/Zogg/Tiltai "Tiltai"
